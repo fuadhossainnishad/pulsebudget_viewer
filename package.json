@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/fuadhossainnishad/pulsebudget_viewer.git"
   },
   "scripts": {
     "dev": "next dev",
