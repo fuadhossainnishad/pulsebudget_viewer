@@ -2,6 +2,7 @@
 
 import { client } from '@/lib/client'
 import React, { useState } from 'react'
+import { filters } from './filters';
 
 interface FilterData {
   id: number;
@@ -15,14 +16,14 @@ export default function FilterPage() {
     const handleFilter = (type: string, value: string) => {
     setSelect(prev => ({
       ...prev,
-      [type]: prev[type] === value ? "" : value, // Toggle selection
+      [type]: prev[type] === value ? "" : value, 
     }));
   }
   const handleFilterSubmit = async () => {
     try {
       const queryString = new URLSearchParams(select).toString()
-      const res = await client.get(`/filter?${queryString}`)
-      console.log('Filter data:', res.data);
+      const res = await client.get<FilterData[]>(`/filter?${queryString}`)
+      console.log('Filter data:', res.data || []);
       console.log('Filter data:', select);
       if (res.status === 200) {
         setFilterdata(res.data)
@@ -125,13 +126,4 @@ export default function FilterPage() {
   )
 }
 
-export const filters = [
-  {
-    type: "subsidiary",
-    values: ["subsidiary1", "subsidiary2", "subsidiary3"]
-  },
-  {
-    type: "sector",
-    values: ["sector", "sector2", "sector3"]
-  }
-]
+
