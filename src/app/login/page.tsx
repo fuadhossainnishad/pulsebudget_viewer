@@ -2,6 +2,7 @@
 
 import { client } from "@/lib/client"
 import axios from "axios"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
@@ -12,7 +13,7 @@ export interface FormValueInterface {
 }
 
 export default function LoginPage() {
-  
+  const router = useRouter()
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormValueInterface>()
   const [error, setError] = useState<string | null>(null)
   const submitHandler: SubmitHandler<FormValueInterface> = async (formData) => {
@@ -20,8 +21,9 @@ export default function LoginPage() {
     try {
       const res = await client.post('login', { email, password })
       if (res.status === 200) {
-
       }
+      alert("Login successful")
+      router.push('/')
       console.log(res.data)
       reset()
     } catch (err: unknown) {

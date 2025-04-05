@@ -6,11 +6,11 @@ export interface Filter {
   export const filters: Filter[] = [
     {
       type: "subsidiary",
-      values: ["subsidiary1", "subsidiary2", "subsidiary3"]
+      values: ["Branch A", "Branch B", "Branch C"]
     },
     {
       type: "sector",
-      values: ["sector1", "sector2", "sector3"]
+      values: ["R&D", "Marketing", "HR"]
     }
   ];
   
