@@ -24,14 +24,15 @@ export default function Home() {
         if (res.status === 200) {
           setDashBoard(res.data.data)
           console.log('Dashboard data:', res.data.data);
-          console.log(dashBoard)
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     }
     fetchData()
-  }, [dashBoard])
+  }, [])
+
+
   return (
     <main>
       <section className='flex h-full gap-10 justify-center mt-10'>

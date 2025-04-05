@@ -1,8 +1,7 @@
 'use client'
 
 import { client } from '@/lib/client'
-import React, { useState } from 'react'
-import { filters } from './filters';
+import React, { useEffect, useState } from 'react'
 
 interface FilterDataInterface {
   _id: { [key: string]: string }
@@ -22,9 +21,15 @@ interface ApiResponse {
   };
 }
 
+export interface FilterInterface {
+  type: string;
+  values: string[];
+}
+
 export default function FilterPage() {
   const [select, setSelect] = useState<{ [key: string]: string }>({})
   const [filterdata, setFilterdata] = useState<ApiResponse>();
+  const [filters, setFilters] = useState<FilterInterface[]>([])
   const handleFilter = (type: string, value: string) => {
     setSelect(prev => ({
       ...prev,
@@ -48,6 +53,21 @@ export default function FilterPage() {
     }
 
   }
+
+  useEffect(() => {
+    const fetchFields = async () => {
+      const res = await client.get('/fields')
+      console.log('fields:', res.data.fields);
+      const transformed = Object.entries(res.data.fields).map(([key, values]) => ({
+        type: key,
+        values: values as string[],
+      }));
+
+      setFilters(transformed);
+    }
+    fetchFields();
+  }, [])
+
   return (
     <main className="flex items-center py-12 gap-10">
       <section className='flex items-center gap-10 w-fit bg-gray-400 ml-10 rounded-xl px-8 py-20 text-lg'>
