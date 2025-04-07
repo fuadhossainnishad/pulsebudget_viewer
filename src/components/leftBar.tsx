@@ -1,14 +1,25 @@
+'use client'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 export default function LeftBar() {
+    const [navs, setNavs] = useState<{ name: string, path: string }[]>(NavsInfo)
+    useEffect(() => {
+        const login = localStorage.getItem("loggedin")
+        if (login === "true") {
+            setNavs((pre) => [
+                ...pre,
+                { name: "Transaction", path: "/transaction" }
+            ])
+        }
+    }, [])
     return (
         <main className=' mt-5 flex justify-center'>
             {/* <section>
                 <h1 className='text-lg text-black text-center font-semibold'>PulseBudget</h1>
             </section> */}
             <section className='flex gap-6 text-black text-sm bg-amber-50 h-full w-fit px-10 py-4  rounded-3xl '>
-                {NavsInfo.map((nav, i) => (
+                {navs.map((nav, i) => (
                     <Link key={i} href={nav.path} className=''>{nav.name}</Link>
                 ))}
             </section>
@@ -23,5 +34,5 @@ export const NavsInfo = [
     { name: "Dashboard", path: "/" },
     { name: "Filter", path: "/filter" },
     { name: "Login", path: "/login" },
-    { name: "Transaction", path: "/transaction" },
+    { name: "Settings", path: "/settings" },
 ]

@@ -19,13 +19,15 @@ export default function LoginPage() {
   const submitHandler: SubmitHandler<FormValueInterface> = async (formData) => {
     const { email, password } = formData
     try {
+
       const res = await client.post('login', { email, password })
       if (res.status === 200) {
+        alert("Login successful")
+        localStorage.setItem("loggedin", "true")
+        router.push('/')
+        reset()
       }
-      alert("Login successful")
-      router.push('/')
-      console.log(res.data)
-      reset()
+
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         console.error("Axios Error:", err.response?.data); // Log error response
