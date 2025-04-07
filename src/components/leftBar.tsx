@@ -23,5 +23,5 @@ export const NavsInfo = [
     { name: "Dashboard", path: "/" },
     { name: "Filter", path: "/filter" },
     { name: "Login", path: "/login" },
-    { name: "Settings", path: "/settings" },
+    { name: "Transaction", path: "/transaction" },
 ]
